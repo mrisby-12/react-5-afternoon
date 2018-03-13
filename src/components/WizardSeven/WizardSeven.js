@@ -1,9 +1,11 @@
 import React,  { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { updateCredit } from '../../ducks/reducer';
 
 class WizardSeven extends Component {
-
     render(){
+        const { updateCredit } = this.props;
         return(
             <div className="parent-div">
                 <div className="vert-align">                    
@@ -11,15 +13,20 @@ class WizardSeven extends Component {
                     <p>Estimate your credit score</p> <br />
                     
                     <div className="row">
-                        <Link to="/wEight"><button onClick={this.props.updateCreditE}>Excellent</button></Link>
-                        <Link to="/wEight"><button onClick={this.props.updateCreditG}>Good</button></Link>
-                        <Link to="/wEight"><button onClick={this.props.updateCreditF}>Fair</button></Link>
-                        <Link to="/wEight"><button onClick={this.props.updateCreditP}>Poor</button></Link>
+                        <Link to="/wEight"><button onClick={ () => updateCredit('Excellent') }>Excellent</button></Link>
+                        <Link to="/wEight"><button onClick={ () => updateCredit('Good') }>Good</button></Link>
+                        <Link to="/wEight"><button onClick={ () => updateCredit('Fair') }>Fair</button></Link>
+                        <Link to="/wEight"><button onClick={ () => updateCredit('Poor') }>Poor</button></Link>
                     </div>
                 </div>
             </div>
         )
     }
 }
+function mapStateToProps(state){
+    const { credit } = state;
 
-export default WizardSeven;
+    return { credit };
+}
+
+export default connect( mapStateToProps, { updateCredit })(WizardSeven);
